@@ -1,5 +1,5 @@
-const core = require("@actions/core");
-const { synchronizeBranches } = require("./synchronize");
+import * as core from "@actions/core";
+import { synchronizeBranches } from "./synchronize.js";
 
 async function main() {
   try {
@@ -10,4 +10,4 @@ async function main() {
   }
 }
 
-if (require.main === module) main();
+main();

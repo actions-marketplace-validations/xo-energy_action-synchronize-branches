@@ -1,7 +1,7 @@
-const core = require("@actions/core");
-const fs = require("fs");
-const simpleGit = require("simple-git");
-const { basename, join: joinPath, resolve: resolvePath } = require("path");
+import * as core from "@actions/core";
+import fs from "node:fs";
+import simpleGit from "simple-git";
+import { basename, join as joinPath, resolve as resolvePath } from "node:path";
 
 /**
  * Get the path to each git repository in a directory.
@@ -72,4 +72,4 @@ async function synchronizeBranches(path) {
   }
 }
 
-module.exports = { getChildRepositories, synchronizeBranches };
+export { getChildRepositories, synchronizeBranches };
