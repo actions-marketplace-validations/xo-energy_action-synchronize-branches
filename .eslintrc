@@ -1,10 +1,10 @@
 {
   "plugins": [
-    "jest"
+    "@vitest"
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:jest/recommended",
+    "plugin:@vitest/legacy-recommended",
     "prettier"
   ],
   "env": {
@@ -13,7 +13,7 @@
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2019
+    "ecmaVersion": 2022
   },
   "rules": {
     "no-cond-assign": [
@@ -27,5 +27,13 @@
       }
     ],
     "prefer-destructuring": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.js"],
+      "env": {
+        "@vitest/env": true
+      }
+    }
+  ]
 }

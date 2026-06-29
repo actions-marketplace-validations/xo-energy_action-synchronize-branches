@@ -1,13 +1,15 @@
-jest.unmock("../src/synchronize");
+let getChildRepositories;
+let resolvePath;
 
-const path = require("path");
-const { getChildRepositories } = require("../src/synchronize");
+beforeAll(async () => {
+  ({ getChildRepositories } = await import("../src/synchronize"));
+  ({ resolve: resolvePath } = await import("node:path"));
+});
 
 describe("getChildRepositories", () => {
   test("finds this repository", async () => {
     const children = await getChildRepositories("..");
-    const current = path.resolve(".");
-    expect(children).toContain(current);
+    expect(children).toContain(resolvePath("."));
   });
   test("finds no children of this repository", async () => {
     const children = await getChildRepositories(".");
