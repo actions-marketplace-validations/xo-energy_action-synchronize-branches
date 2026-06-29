@@ -4,6 +4,9 @@
   "license": "ISC",
   "private": true,
   "main": "dist/index.js",
+  "engines": {
+    "node": "^24.0.0"
+  },
   "scripts": {
     "prebuild": "npm run lint && npm run test && npm run clean",
     "build": "ncc build src/main.js -s",
