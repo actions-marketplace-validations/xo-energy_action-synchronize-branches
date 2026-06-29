@@ -13,7 +13,6 @@ async function getChildRepositories(path) {
   const children = [];
   let entry;
 
-  // eslint-disable-next-line no-await-in-loop
   while ((entry = await dir.read())) {
     const resolved = resolvePath(path, entry.name);
     if (entry.isDirectory() && fs.existsSync(joinPath(resolved, ".git"))) {
@@ -31,7 +30,7 @@ async function getChildRepositories(path) {
  */
 async function synchronizeBranches(path) {
   const githubRef = process.env.GITHUB_REF;
-  const [, githubRepository ] = process.env.GITHUB_REPOSITORY.split("/", 2);
+  const [, githubRepository] = process.env.GITHUB_REPOSITORY.split("/", 2);
 
   if (githubRef === "refs/heads/master" || githubRef.startsWith("refs/tags/")) {
     core.info(`Skipping synchronize for ${githubRef}`);
@@ -40,7 +39,7 @@ async function synchronizeBranches(path) {
 
   const branch = basename(githubRef);
   const children = (await getChildRepositories(path)).filter(
-    (child) => basename(child) !== githubRepository
+    (child) => basename(child) !== githubRepository,
   );
 
   for (let i = 0; i < children.length; ++i) {
@@ -49,7 +48,7 @@ async function synchronizeBranches(path) {
     const git = simpleGit(child);
 
     // try to fetch a branch with the same name
-    // eslint-disable-next-line no-await-in-loop
+
     await git
       .fetch(["--no-tags", "--prune", "--no-recurse-submodules", "--depth=1", "origin", branch])
       .then(
@@ -67,7 +66,7 @@ async function synchronizeBranches(path) {
           } else {
             throw e;
           }
-        }
+        },
       );
   }
 }
